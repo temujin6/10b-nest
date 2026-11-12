@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Сурагчийн дүнгийн систем</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f4f8;
+        display: flex;
+        justify-content: center;
+        padding: 50px 15px;
+      }
+
+      .container {
+        background-color: white;
+        width: 400px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        background-color: #491b8b;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #1d4ed8;
+      }
+
+      #result {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f0f5ff;
+        border-radius: 8px;
+        display: none;
+      }
+
+      #result p {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Сурагчийн дүн бодох систем</h2>
+
+      <label>Сурагчийн нэр:</label>
+      <input type="text" id="studentName" placeholder="Нэрээ оруулна уу" />
+
+      <label>1-р улирлын оноо:</label>
+      <input type="number" id="score1" placeholder="0-100" />
+
+      <label>2-р улирлын оноо:</label>
+      <input type="number" id="score2" placeholder="0-100" />
+
+      <label>3-р улирлын оноо:</label>
+      <input type="number" id="score3" placeholder="0-100" />
+
+      <button onclick="calculateGrade()">Дүн бодох</button>
+
+      <div id="result">
+        <h3>Улирлын үр дүн</h3>
+        <p id="nameResult"></p>
+        <p id="averageResult"></p>
+        <p id="gradeResult"></p>
+      </div>
+    </div>
+
+    <script>
+      function calculateGrade() {
+        let name = document.getElementById("studentName").value;
+
+        let score1 = Number(document.getElementById("score1").value);
+        let score2 = Number(document.getElementById("score2").value);
+        let score3 = Number(document.getElementById("score3").value);
+
+        // Шалгах
+        if (name === "") {
+          alert("Сурагчийн нэрээ оруулна уу!");
+          return;
+        }
+
+        if (
+          document.getElementById("score1").value === "" ||
+          document.getElementById("score2").value === "" ||
+          document.getElementById("score3").value === ""
+        ) {
+          alert("Бүх оноог оруулна уу!");
+          return;
+        }
+
+        if (
+          score1 < 0 ||
+          score1 > 100 ||
+          score2 < 0 ||
+          score2 > 100 ||
+          score3 < 0 ||
+          score3 > 100
+        ) {
+          alert("Оноо 0-100 хооронд байх ёстой!");
+          return;
+        }
+
+        let average = (score1 + score2 + score3) / 3;
+
+        let grade;
+
+        if (average >= 90) {
+          grade = "A";
+        } else if (average >= 80) {
+          grade = "B";
+        } else if (average >= 70) {
+          grade = "C";
+        } else if (average >= 60) {
+          grade = "D";
+        } else {
+          grade = "F";
+        }
+
+        document.getElementById("nameResult").innerText =
+          "Сурагчийн нэр: " + name;
+
+        document.getElementById("averageResult").innerText =
+          "Дундаж оноо: " + average.toFixed(2);
+
+        document.getElementById("gradeResult").innerText = "Дүн: " + grade;
+
+        document.getElementById("result").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
